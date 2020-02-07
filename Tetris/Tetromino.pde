@@ -210,7 +210,7 @@ class T extends Tetromino {
     * *
 */
 class S extends Tetromino {
-  public final String ID = "BOX";
+  public final String ID = "S-PIECE";
 
   //Constructor
   public S(float x, float y) {
@@ -234,7 +234,7 @@ class S extends Tetromino {
 
 */
 class Z extends Tetromino {
-  public final String ID = "BOX";
+  public final String ID = "Z-PIECE";
 
   //Constructor
   public Z(float x, float y) {
@@ -244,10 +244,10 @@ class Z extends Tetromino {
   
   void updatePoints() {
     points = new PVector[][]{
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}};
+      {new PVector(x-20, y-20), new PVector(x, y-20), new PVector(x, y), new PVector(x+20, y)}, 
+      {new PVector(x+20, y-20), new PVector(x+20, y), new PVector(x, y), new PVector(x, y+20)}, 
+      {new PVector(x+20, y+20), new PVector(x, y+20), new PVector(x, y), new PVector(x-20, y)}, 
+      {new PVector(x-20, y+20), new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20)}};
   }
 }
 
@@ -258,7 +258,7 @@ class Z extends Tetromino {
     * *
 */
 class L extends Tetromino {
-  public final String ID = "BOX";
+  public final String ID = "L-PIECE";
 
   //Constructor
   public L(float x, float y) {
@@ -268,10 +268,10 @@ class L extends Tetromino {
   
   void updatePoints() {
     points = new PVector[][]{
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}};
+      {new PVector(x, y-20), new PVector(x, y), new PVector(x, y+20), new PVector(x+20, y+20)}, 
+      {new PVector(x+20, y), new PVector(x, y), new PVector(x-20, y), new PVector(x-20, y+20)}, 
+      {new PVector(x, y+20), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
+      {new PVector(x-20, y), new PVector(x, y), new PVector(x+20, y), new PVector(x+20, y-20)}};
   }
 }
 
@@ -281,7 +281,7 @@ class L extends Tetromino {
     * *
 */
 class J extends Tetromino {
-  public final String ID = "BOX";
+  public final String ID = "J-PIECE";
 
   //Constructor
   public J(float x, float y) {
@@ -291,9 +291,9 @@ class J extends Tetromino {
   
   void updatePoints() {
     points = new PVector[][]{
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}};
+      {new PVector(x, y-20), new PVector(x, y), new PVector(x, y+20), new PVector(x-20, y+20)}, 
+      {new PVector(x+20, y), new PVector(x, y), new PVector(x-20, y), new PVector(x-20, y-20)}, 
+      {new PVector(x, y+20), new PVector(x, y), new PVector(x, y-20), new PVector(x+20, y-20)}, 
+      {new PVector(x-20, y), new PVector(x, y), new PVector(x+20, y), new PVector(x+20, y+20)}};
   }
 }
