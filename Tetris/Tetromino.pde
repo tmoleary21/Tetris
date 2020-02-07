@@ -91,7 +91,7 @@ class I implements Tetromino{
   boolean checkCW(int[][] board){
     int nextOrientation = (orientation + 1) % 4;
     for(PVector point : points[nextOrientation]){
-       if(point.x < 0 || point.x >= width - 120 ||  point.y >= height || point.y < 0){
+       if(point.x < 0 || point.x >= width - 120 ||  point.y >= height){
           return false; 
        }
        if(point.y > 0 && board[(int)point.y / 20][(int)point.x / 20] == 1){
@@ -104,7 +104,7 @@ class I implements Tetromino{
   boolean checkCCW(int[][] board){
     int nextOrientation = (orientation + 3) % 4;
     for(PVector point : points[nextOrientation]){
-       if(point.x < 0 || point.x >= width - 120 ||  point.y >= height || point.y < 0){
+       if(point.x < 0 || point.x >= width - 120 ||  point.y >= height){
           return false; 
        }
        if(point.y > 0 && board[(int)point.y / 20][(int)point.x / 20] == 1){
