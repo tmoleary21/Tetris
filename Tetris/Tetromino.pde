@@ -220,10 +220,10 @@ class S extends Tetromino {
   
   void updatePoints() {
     points = new PVector[][]{
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}, 
-      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x-20, y-20)}};
+      {new PVector(x-20, y), new PVector(x, y), new PVector(x, y-20), new PVector(x+20, y-20)}, 
+      {new PVector(x, y-20), new PVector(x, y), new PVector(x+20, y), new PVector(x+20, y+20)}, 
+      {new PVector(x+20, y), new PVector(x, y), new PVector(x, y+20), new PVector(x-20, y+20)}, 
+      {new PVector(x, y+20), new PVector(x, y), new PVector(x-20, y), new PVector(x-20, y-20)}};
   }
 }
 
