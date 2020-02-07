@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-Tetromino current = new I(80,0);
+Tetromino current = new T(80,0);
 int frame = 0;
 float Vx = 0;
 float G = 1;
@@ -29,10 +29,10 @@ void draw(){
   
   //Move Down
   if(frame % ((1/G) * 60) == 0){ //Frame rate is 60fps, so to start we want it to move every second. That would be 60 frames.
-    if(((I)current).canMoveRLD[2] == false){
+    if(((T)current).canMoveRLD[2] == false){
       current.lock(board);
       printBoard();
-      current = new I(80,0);
+      current = new T(80,0);
     }
     else{
       current.moveY();
