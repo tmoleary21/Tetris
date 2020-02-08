@@ -1,12 +1,14 @@
 import java.util.Arrays;
 
-Tetromino current = new T(80,0);
+Tetromino current;
 int frame = 0;
 float Vx = 0;
 float G = 1;
 int Vorient = 0;
 
 int[][] board = new int[20][10];
+
+ArrayList<Tetromino> nextPieces = new ArrayList<Tetromino>();
 
 //SCORE VARIABLES
 int clearedLines = 0;
@@ -19,6 +21,10 @@ void draw(){
   //Score
   text("Lines " + clearedLines, 220, 100);;
   
+  if(nextPieces.size() == 0){
+     populateNextList(); 
+  }
+  
   //Move right/left
   if(keyPressed){
     current.moveX(Vx);
@@ -29,10 +35,11 @@ void draw(){
   
   //Move Down
   if(frame % ((1/G) * 60) == 0){ //Frame rate is 60fps, so to start we want it to move every second. That would be 60 frames.
-    if(((T)current).canMoveRLD[2] == false){
+    if(current.canMoveRLD[2] == false){
       current.lock(board);
       printBoard();
-      current = new T(80,0);
+      current = nextPieces.get(nextPieces.size()-1);
+      nextPieces.remove(nextPieces.size()-1);
     }
     else{
       current.moveY();
@@ -47,8 +54,10 @@ void draw(){
   
   clearLines();
   
+  
   //Increasing and checking frame counter. Continuous
   frame++;
+  println(frame);
   if(frame >= Integer.MAX_VALUE) frame = 0;
 }
 
@@ -82,6 +91,9 @@ void setup(){
   size(320,400); 
   textSize(20);
   printBoard();
+  populateNextList();
+  current = nextPieces.get(nextPieces.size()-1);
+  nextPieces.remove(nextPieces.size()-1);
 }
 
 //Makes a grid in the playfield. Nice to have
@@ -121,4 +133,13 @@ void clearLines(){
        }
    }
  }
+}
+
+void populateNextList(){
+    ArrayList<Tetromino> pieces = new ArrayList<Tetromino>(Arrays.asList(new I(80,0), new O(80,0), new T(80,0), new S(80,0), new Z(80,0), new L(80,0), new J(80,0)));
+    for(int i = 0; i < 7; i++){
+        int index = (int)(pieces.size() * Math.random()); //<>// //<>//
+        nextPieces.add(pieces.get(index));
+        pieces.remove(index);
+    }
 }
