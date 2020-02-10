@@ -31,6 +31,12 @@ class Tetromino {
     println(Arrays.toString(canMoveRLD));
     println(Arrays.toString(canTurnRL));
   }
+  
+  public void setPos(float x, float y){
+   this.x = x;
+   this.y = y;
+   updatePoints();
+  }
 
   public void moveX(float Vx) {
     if ((Vx > 0 && canMoveRLD[0]) || (Vx < 0 && canMoveRLD[1])) {
@@ -66,7 +72,7 @@ class Tetromino {
       if (point.y + 20 >= height) {
         return false;
       }
-      if (point.y > 0 && (int)point.y / 20 + 1 < 20 && board[(int)point.y / 20 + 1][(int)point.x / 20] == 1) {
+      if (inBoard((int)point.x / 20, (int)point.y / 20 + 1, board) && board[(int)point.y / 20 + 1][(int)point.x / 20] == 1) {
         return false;
       }
     }
@@ -78,7 +84,7 @@ class Tetromino {
       if (point.x - 20 < 0) {
         return false;
       }
-      if (point.y > 0 && board[(int)point.y / 20][(int)point.x / 20 - 1] == 1) {
+      if (inBoard((int)point.x / 20 - 1, (int)point.y / 20, board) && board[(int)point.y / 20][(int)point.x / 20 - 1] == 1) {
         return false;
       }
     }
@@ -90,7 +96,7 @@ class Tetromino {
       if (point.x + 20 >= width - 120) { //check boundary
         return false;
       }
-      if (point.y > 0 && (int)point.x / 20 + 1 < 10 && board[(int)point.y / 20][(int)point.x / 20 + 1] == 1) { //check for piece
+      if (inBoard((int)point.x / 20 + 1, (int)point.y / 20, board) && board[(int)point.y / 20][(int)point.x / 20 + 1] == 1) { //check for piece
         return false;
       }
     }
@@ -103,7 +109,7 @@ class Tetromino {
       if (point.x < 0 || point.x >= width - 120 ||  point.y >= height) {
         return false;
       }
-      if (point.y > 0 && board[(int)point.y / 20][(int)point.x / 20] == 1) {
+      if (inBoard((int)point.x / 20, (int)point.y / 20, board) && board[(int)point.y / 20][(int)point.x / 20] == 1) {
         return false;
       }
     }
@@ -116,7 +122,7 @@ class Tetromino {
       if (point.x < 0 || point.x >= width - 120 ||  point.y >= height) {
         return false;
       }
-      if (point.y > 0 && board[(int)point.y / 20][(int)point.x / 20] == 1) {
+      if (inBoard((int)point.x / 20, (int)point.y / 20, board) && board[(int)point.y / 20][(int)point.x / 20] == 1) {
         return false;
       }
     }

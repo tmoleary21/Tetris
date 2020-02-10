@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 Tetromino current;
+Tetromino next;
 int frame = 0;
 float Vx = 0;
 float G = 1;
@@ -21,9 +22,7 @@ void draw(){
   //Score
   text("Lines " + clearedLines, 220, 100);;
   
-  if(nextPieces.size() == 0){
-     populateNextList(); 
-  }
+  
   
   //Move right/left
   if(keyPressed){
@@ -40,12 +39,22 @@ void draw(){
       printBoard();
       current = nextPieces.get(nextPieces.size()-1);
       nextPieces.remove(nextPieces.size()-1);
+      current.setPos(80,0);
     }
     else{
       current.moveY();
     }
     G = 1;
   }
+  
+  if(nextPieces.size() == 0){
+     populateNextList(); 
+  }
+  
+  next = nextPieces.get(nextPieces.size()-1);
+  next.setPos(240, 40);
+  next.drawBlock(board);
+  
   
   current.drawBlock(board);
   
