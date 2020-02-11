@@ -27,9 +27,9 @@ class Tetromino {
     canMoveRLD[2] = checkDown(board);
     canTurnRL[0] = checkCW(board);
     canTurnRL[1] = checkCCW(board);
-    println(Arrays.toString(points[orientation]));
-    println(Arrays.toString(canMoveRLD));
-    println(Arrays.toString(canTurnRL));
+    //println(Arrays.toString(points[orientation]));
+    //println(Arrays.toString(canMoveRLD));
+    //println(Arrays.toString(canTurnRL));
   }
   
   public void setPos(float x, float y){
@@ -62,9 +62,17 @@ class Tetromino {
   }
 
   public void lock(int[][] board) {
+    println("\\/--------------------------------------------\\/");
     for (PVector point : points[orientation]) {
       board[(int)(point.y / 20)][(int)(point.x / 20)] = 1;
+      
+      println("block\n");
+      for(int[] elem : board){
+         println(Arrays.toString(elem)); 
+      }
+      
     }
+    println("/\\--------------------------------------------/\\");
   }
 
   boolean checkDown(int[][] board) {

@@ -36,6 +36,7 @@ void draw(){
   if(frame % ((1/G) * 60) == 0){ //Frame rate is 60fps, so to start we want it to move every second. That would be 60 frames.
     if(current.canMoveRLD[2] == false){
       current.lock(board);
+      println(frame);
       printBoard();
       current = nextPieces.get(nextPieces.size()-1);
       nextPieces.remove(nextPieces.size()-1);
@@ -66,7 +67,7 @@ void draw(){
   
   //Increasing and checking frame counter. Continuous
   frame++;
-  println(frame);
+  //println(frame);
   if(frame >= Integer.MAX_VALUE) frame = 0;
 }
 
@@ -147,7 +148,7 @@ void clearLines(){
 void populateNextList(){
     ArrayList<Tetromino> pieces = new ArrayList<Tetromino>(Arrays.asList(new I(80,0), new O(80,0), new T(80,0), new S(80,0), new Z(80,0), new L(80,0), new J(80,0)));
     for(int i = 0; i < 7; i++){
-        int index = (int)(pieces.size() * Math.random()); //<>// //<>//
+        int index = (int)(pieces.size() * Math.random());
         nextPieces.add(pieces.get(index));
         pieces.remove(index);
     }
