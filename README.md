@@ -1,2 +1,9 @@
 # Tetris1
-My first try at making Tetris.
+Simple tetris. First attempt.
+
+Left key - Move left
+Right key - Move right
+Down key - Soft drop
+
+Z - rotate counter-clockwise
+X - rotate clockwise
