@@ -5,14 +5,12 @@ class Tetromino {
   public float y;
   public int orientation; 
   PVector[][] points;
-  boolean[] canMoveRLD; //indicates if can move right, left, or down (In that order)
   boolean[] canTurnRL;
 
   public Tetromino(float x, float y) {
     this.x = x;
     this.y = y;
     orientation = 0;
-    canMoveRLD = new boolean[]{true, true, true};
     canTurnRL = new boolean[]{true, true};
   }
 
@@ -22,13 +20,9 @@ class Tetromino {
       rect(points[orientation][block].x, points[orientation][block].y, 20, 20);
     }
 
-    //canMoveRLD[0] = checkRight(board);
-    //canMoveRLD[1] = checkLeft(board);
-    canMoveRLD[2] = checkDown(board);
     canTurnRL[0] = checkCW(board);
     canTurnRL[1] = checkCCW(board);
     //println(Arrays.toString(points[orientation]));
-    //println(Arrays.toString(canMoveRLD));
     //println(Arrays.toString(canTurnRL));
   }
   
@@ -38,18 +32,7 @@ class Tetromino {
    updatePoints();
   }
   
-  public PVector[] getfuture(float newX, float newY, int newOrientation){
-      PVector[] futurePoints = points[newOrientation];
-      for(PVector point : futurePoints){
-          point.x = point.x - x + newX;
-          point.y = point.y - y + newY;
-      }
-      return futurePoints;
-  }
-  
   public boolean moveX(float Vx, int[][] board) {
-    //if ((Vx > 0 && canMoveRLD[0]) || (Vx < 0 && canMoveRLD[1])) {
-        //PVector[] future = getfuture(x + Vx * 20, y, orientation);
         for(PVector point : points[orientation]){
           if(!inBoard((int)(point.x/20 + Vx), (int)point.y/20, board)){
               println("NO");
@@ -66,11 +49,20 @@ class Tetromino {
       println("YES");
       return true;
     }
-  public void moveY() {
-    if (canMoveRLD[2]) {
+  public boolean moveY(int[][] board) {
+    for(PVector point : points[orientation]){
+        if(!inBoard((int)point.x/20, (int)(point.y/20 + 1), board)){
+            println("NO");
+            return false;
+        }
+        if(board[(int)(point.y/20 + 1)][(int)(point.x/20 + Vx)] == 1){
+            println("NO");
+            return false;
+        }
+      }
       y += 20;
       updatePoints();
-    }
+      return true;
   }
   void turn(int Vorient) {
     if ((Vorient == 1 && canTurnRL[0]) || (Vorient == 3 && canTurnRL[1])) {

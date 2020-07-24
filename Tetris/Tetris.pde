@@ -41,7 +41,7 @@ void draw(){
   
   //Move Down
   if(frame % ((1/G) * 60) == 0){ //Frame rate is 60fps, so to start we want it to move every second. That would be 60 frames.
-    if(current.canMoveRLD[2] == false){//locking #####HAS canMoveRLD USAGE
+    if(current.moveY(board) == false){//Moves the piece down then also checks if it needs to lock
       if(!current.lock(board)){
         gamemode = 2;
       }
@@ -52,9 +52,6 @@ void draw(){
         nextPieces.remove(nextPieces.size()-1);
         current.setPos(80,0);
       }
-    }
-    else{
-      current.moveY();
     }
     G = 1;
   }
@@ -77,9 +74,9 @@ void draw(){
   
   if(gamemode == 2){
      fill(0);
-     rect(60, 80, 120, 100);
+     rect(40, 80, 120, 100);
      fill(255,0,0);
-     text("GAME OVER\nSCORE: " + score + "\nLINES: " + clearedLines, 60, 100);
+     text("GAME OVER\nSCORE: " + score + "\nLINES: " + clearedLines, 40, 100);
      noLoop();
   }
   
