@@ -61,9 +61,12 @@ class Tetromino {
     //Here to exist
   }
 
-  public void lock(int[][] board) {
+  public boolean lock(int[][] board) {
     println("\\/--------------------------------------------\\/");
     for (PVector point : points[orientation]) {
+      if(point.y < 0){
+        return false; //means that it is above the board, so end the game. loss
+      }
       board[(int)(point.y / 20)][(int)(point.x / 20)] = 1;
       
       println("block\n");
@@ -73,6 +76,7 @@ class Tetromino {
       
     }
     println("/\\--------------------------------------------/\\");
+    return true;
   }
 
   boolean checkDown(int[][] board) {

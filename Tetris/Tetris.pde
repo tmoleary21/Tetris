@@ -8,11 +8,13 @@ float G = 1;
 int Vorient = 0;
 
 int[][] board = new int[20][10];
+int gamemode = 1; //0 is menu, 1 is game, 2 is game over
 
 ArrayList<Tetromino> nextPieces = new ArrayList<Tetromino>();
 
 //SCORE VARIABLES
 int clearedLines = 0;
+int score = 0;
 
 void draw(){
   //background and separator
@@ -34,13 +36,17 @@ void draw(){
   
   //Move Down
   if(frame % ((1/G) * 60) == 0){ //Frame rate is 60fps, so to start we want it to move every second. That would be 60 frames.
-    if(current.canMoveRLD[2] == false){
-      current.lock(board);
-      println(frame);
-      printBoard();
-      current = nextPieces.get(nextPieces.size()-1);
-      nextPieces.remove(nextPieces.size()-1);
-      current.setPos(80,0);
+    if(current.canMoveRLD[2] == false){//locking
+      if(!current.lock(board)){
+        gamemode = 2;
+      }
+      else{
+        println(frame);
+        printBoard();
+        current = nextPieces.get(nextPieces.size()-1);
+        nextPieces.remove(nextPieces.size()-1);
+        current.setPos(80,0);
+      }
     }
     else{
       current.moveY();
@@ -64,6 +70,13 @@ void draw(){
   
   clearLines();
   
+  if(gamemode == 2){
+     fill(0);
+     rect(60, 80, 120, 100);
+     fill(255,0,0);
+     text("GAME OVER\nSCORE: " + score + "\nLINES: " + clearedLines, 60, 100);
+     noLoop();
+  }
   
   //Increasing and checking frame counter. Continuous
   frame++;
