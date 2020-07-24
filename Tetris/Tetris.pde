@@ -27,16 +27,21 @@ void draw(){
   
   
   //Move right/left
-  if(keyPressed){
-    current.moveX(Vx);
-    current.turn(Vorient);
-  }
+  //if(keyPressed){
+    if(Vx != 0){
+      current.moveX(Vx, board);
+    }
+    if(Vorient != 0){
+      current.turn(Vorient);
+    }
+    
+  //}
   Vorient = 0;
   Vx = 0;
   
   //Move Down
   if(frame % ((1/G) * 60) == 0){ //Frame rate is 60fps, so to start we want it to move every second. That would be 60 frames.
-    if(current.canMoveRLD[2] == false){//locking
+    if(current.canMoveRLD[2] == false){//locking #####HAS canMoveRLD USAGE
       if(!current.lock(board)){
         gamemode = 2;
       }

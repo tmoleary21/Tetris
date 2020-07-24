@@ -22,8 +22,8 @@ class Tetromino {
       rect(points[orientation][block].x, points[orientation][block].y, 20, 20);
     }
 
-    canMoveRLD[0] = checkRight(board);
-    canMoveRLD[1] = checkLeft(board);
+    //canMoveRLD[0] = checkRight(board);
+    //canMoveRLD[1] = checkLeft(board);
     canMoveRLD[2] = checkDown(board);
     canTurnRL[0] = checkCW(board);
     canTurnRL[1] = checkCCW(board);
@@ -37,13 +37,35 @@ class Tetromino {
    this.y = y;
    updatePoints();
   }
-
-  public void moveX(float Vx) {
-    if ((Vx > 0 && canMoveRLD[0]) || (Vx < 0 && canMoveRLD[1])) {
+  
+  public PVector[] getfuture(float newX, float newY, int newOrientation){
+      PVector[] futurePoints = points[newOrientation];
+      for(PVector point : futurePoints){
+          point.x = point.x - x + newX;
+          point.y = point.y - y + newY;
+      }
+      return futurePoints;
+  }
+  
+  public boolean moveX(float Vx, int[][] board) {
+    //if ((Vx > 0 && canMoveRLD[0]) || (Vx < 0 && canMoveRLD[1])) {
+        //PVector[] future = getfuture(x + Vx * 20, y, orientation);
+        for(PVector point : points[orientation]){
+          if(!inBoard((int)(point.x/20 + Vx), (int)point.y/20, board)){
+              println("NO");
+              return false;
+          }
+          if(board[(int)point.y/20][(int)(point.x/20 + Vx)] == 1){
+              println("NO");
+              return false;
+          }
+        }
+      
       x += Vx * 20;
       updatePoints();
+      println("YES");
+      return true;
     }
-  }
   public void moveY() {
     if (canMoveRLD[2]) {
       y += 20;
