@@ -6,6 +6,7 @@ class Tetromino {
   public int orientation; 
   PVector[][] points;
   boolean[] canTurnRL;
+  color clr;
 
   public Tetromino(float x, float y) {
     this.x = x;
@@ -16,10 +17,11 @@ class Tetromino {
 
   public void drawBlock(int[][] board) {
     //draw boxes
+    fill(clr);
     for (int block = 0; block < 4; block++) {
       rect(points[orientation][block].x, points[orientation][block].y, 20, 20);
     }
-
+    fill(255);
     canTurnRL[0] = checkCW(board);
     canTurnRL[1] = checkCCW(board);
     //println(Arrays.toString(points[orientation]));
@@ -75,13 +77,14 @@ class Tetromino {
     //Here to exist
   }
 
-  public boolean lock(int[][] board) {
+  public boolean lock(int[][] board, color[][] colorboard) {
     println("\\/--------------------------------------------\\/");
     for (PVector point : points[orientation]) {
       if(point.y < 0){
         return false; //means that it is above the board, so end the game. loss
       }
       board[(int)(point.y / 20)][(int)(point.x / 20)] = 1;
+      colorboard[(int)(point.y / 20)][(int)(point.x / 20)] = this.clr;
       
       println("block\n");
       for(int[] elem : board){
@@ -178,6 +181,7 @@ class I extends Tetromino {
   //Constructor
   public I(float x, float y) {
     super(x, y);
+    clr = color(0,255,255);
     updatePoints();
   }
 
@@ -201,6 +205,7 @@ class O extends Tetromino {
   //Constructor
   public O(float x, float y) {
     super(x, y);
+    clr = color(255,255,0);
     updatePoints();
   }
   
@@ -224,6 +229,7 @@ class T extends Tetromino {
   //Constructor
   public T(float x, float y) {
     super(x, y);
+    clr = color(255,0,255);
     updatePoints();
   }
   
@@ -247,6 +253,7 @@ class S extends Tetromino {
   //Constructor
   public S(float x, float y) {
     super(x, y);
+    clr = color(0,255,0);
     updatePoints();
   }
   
@@ -271,6 +278,7 @@ class Z extends Tetromino {
   //Constructor
   public Z(float x, float y) {
     super(x, y);
+    clr = color(255,0,0);
     updatePoints();
   }
   
@@ -295,6 +303,7 @@ class L extends Tetromino {
   //Constructor
   public L(float x, float y) {
     super(x, y);
+    clr = color(255,100,0);
     updatePoints();
   }
   
@@ -318,6 +327,7 @@ class J extends Tetromino {
   //Constructor
   public J(float x, float y) {
     super(x, y);
+    clr = color(0,0,255);
     updatePoints();
   }
   
