@@ -3,7 +3,7 @@ import java.util.Arrays;
 Tetromino current;
 Tetromino next;
 int frame = 0;
-float Vx = 0;
+int Vx = 0;
 float G = 1;
 int Vorient = 0;
 
@@ -27,20 +27,20 @@ void draw(){
   
   
   //Move right/left
-    if(Vx != 0){
-      current.moveX(Vx, board.board);
-    }
-    if(Vorient != 0){
-      current.turn(Vorient);
-    }
+  if(Vx != 0){
+    current.moveX(Vx, board);
+  }
+  if(Vorient != 0){
+    current.turn(Vorient, board);
+  }
     
   Vorient = 0;
   Vx = 0;
   
   //Move Down
   if(frame % ((1/G) * 60) == 0){ //Frame rate is 60fps, so to start we want it to move every second. That would be 60 frames.
-    if(current.moveY(board.board) == false){// Moves the piece down then also checks if it needs to lock
-      if(!current.lock(board.board, board.colorBoard)){ // Game over
+    if(current.moveY(board) == false){// Moves the piece down then also checks if it needs to lock
+      if(!board.lockPiece(current)){ // Game over
         gamemode = 2;
       }
       else{
@@ -48,7 +48,6 @@ void draw(){
         board.printBoard();
         current = nextPieces.get(nextPieces.size()-1);
         nextPieces.remove(nextPieces.size()-1);
-        current.setPos(80,0);
       }
     }
     G = 1;
@@ -59,14 +58,14 @@ void draw(){
   }
   
   next = nextPieces.get(nextPieces.size()-1);
-  next.setPos(240, 40);
-  next.drawBlock(board.board);
+  //next.setPos(240, 40);
+  //next.drawBlock(board.board);
   
   
-  current.drawBlock(board.board);
+  //current.drawBlock(board.board);
   
   //Put pieces on the board that are aready locked
-  board.drawBoard();
+  board.drawBoard(current);
   
   clearedLines += board.clearLines();
   
@@ -126,19 +125,19 @@ void setup(){
 void initBoard(){
   PVector offset = new PVector(0,0);
   PVector pixelDimensions = new PVector(20,20);
-  PVector boardDimensions = new PVector(10, 20);
+  PVector boardDimensions = new PVector(10,20);
   board = new Board(offset, pixelDimensions, boardDimensions);
 }
 
 void populateNextList(){
     ArrayList<Tetromino> pieces = new ArrayList<Tetromino>(Arrays.asList(
-      new I(80,0), 
-      new O(80,0), 
-      new T(80,0), 
-      new S(80,0), 
-      new Z(80,0), 
-      new L(80,0), 
-      new J(80,0)
+      new I(4,0), 
+      new O(4,0), 
+      new T(4,0), 
+      new S(4,0), 
+      new Z(4,0), 
+      new L(4,0), 
+      new J(4,0)
     ));
     for(int i = 0; i < 7; i++){
         int index = (int)(pieces.size() * Math.random());
