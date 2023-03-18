@@ -10,7 +10,7 @@ int Vorient = 0;
 Board board;
 int gamemode = 1; //0 is menu, 1 is game, 2 is game over
 
-ArrayList<Tetromino> nextPieces = new ArrayList<Tetromino>();
+PieceProvider pieceProvider;
 
 //SCORE VARIABLES
 int clearedLines = 0;
@@ -44,27 +44,17 @@ void draw(){
         gamemode = 2;
       }
       else{
-        println(frame);
         board.printBoard();
-        current = nextPieces.get(nextPieces.size()-1);
-        nextPieces.remove(nextPieces.size()-1);
+        current = pieceProvider.getNext();
       }
     }
     G = 1;
   }
   
-  if(nextPieces.size() == 0){
-     populateNextList(); 
-  }
-  
-  next = nextPieces.get(nextPieces.size()-1);
+  next = pieceProvider.peekNext();
   //next.setPos(240, 40);
   //next.drawBlock(board.board);
   
-  
-  //current.drawBlock(board.board);
-  
-  //Put pieces on the board that are aready locked
   board.drawBoard(current);
   
   clearedLines += board.clearLines();
@@ -80,7 +70,6 @@ void draw(){
   
   //Increasing and checking frame counter. Continuous
   frame++;
-  //println(frame);
   if(frame >= Integer.MAX_VALUE-1) frame = 0;
 }
 
@@ -89,7 +78,6 @@ void keyPressed(){
      if(keyCode == RIGHT){
         text("RIGHT",220,120);
         Vx = 1;
-        
      }
      if(keyCode == LEFT){
          text("LEFT",220,120);
@@ -117,9 +105,9 @@ void setup(){
   initBoard();
   board.printBoard();
   
-  populateNextList();
-  current = nextPieces.get(nextPieces.size()-1);
-  nextPieces.remove(nextPieces.size()-1);
+  pieceProvider = new PieceProvider();
+  
+  current = pieceProvider.getNext();
 }
 
 void initBoard(){
@@ -127,21 +115,4 @@ void initBoard(){
   PVector pixelDimensions = new PVector(20,20);
   PVector boardDimensions = new PVector(10,20);
   board = new Board(offset, pixelDimensions, boardDimensions);
-}
-
-void populateNextList(){
-    ArrayList<Tetromino> pieces = new ArrayList<Tetromino>(Arrays.asList(
-      new I(4,0), 
-      new O(4,0), 
-      new T(4,0), 
-      new S(4,0), 
-      new Z(4,0), 
-      new L(4,0), 
-      new J(4,0)
-    ));
-    for(int i = 0; i < 7; i++){
-        int index = (int)(pieces.size() * Math.random());
-        nextPieces.add(pieces.get(index));
-        pieces.remove(index);
-    }
 }

@@ -1,8 +1,7 @@
 import java.util.Arrays;
 
 class Tetromino {
-  public int x;
-  public int y;
+  public int x, y;
   public int orientation; 
   PVector[][] points;
   color clr;
@@ -34,7 +33,8 @@ class Tetromino {
         return false;
       }
 
-    }
+  }
+    
   public boolean moveY(Board board) {
       PVector[] position = points[orientation];
       PVector[] nextPosition = new PVector[position.length];
@@ -66,17 +66,6 @@ class Tetromino {
   
   public PVector[] getSquares() {
     return points[orientation];
-  }
-
-  public boolean lock(int[][] board, color[][] colorboard) {
-    for (PVector point : points[orientation]) {
-      if(point.y < 0){
-        return false; //means that it is above the board, so end the game. loss
-      }
-      board[(int)point.y][(int)point.x] = 1;
-      colorboard[(int)point.y][(int)point.x] = this.clr;
-    }
-    return true;
   }
   
 }
